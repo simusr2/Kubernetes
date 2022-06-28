@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: k10-ingress
+  namespace: kasten-io
+  annotations:
+    kubernetes.io/ingress.class: public
+    portainer.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/cluster-issuer: "acme-issuer"
+spec:
+  rules:
+  - host: k10.example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: gateway
+            port:
+              number: 8000
+  tls:
+    - hosts:
+        - k10.example.com
+      secretName: k10-ingress-tls

@@ -1,0 +1,3 @@
+kubectl patch deployment kubernetes-dashboard -n kube-system — patch ‘{“spec”: {“template”: {“spec”: {“nodeSelector”: {“beta.kubernetes.io/arch”: “arm64”}}}}}’
+
+kubectl patch deployment crypto-svc -n kasten-io --patch '{"spec":{"template":{"spec":{"nodeSelector":{"beta.kubernetes.io/arch":"amd64"}}}}}'

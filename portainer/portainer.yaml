@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: portainer-ingress
+  namespace: portainer
+  annotations:
+    kubernetes.io/ingress.class: public
+    portainer.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/cluster-issuer: "acme-issuer"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+spec:
+  rules:
+  - host: portainer.example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: portainer
+            port:
+              number: 9443
+  tls:
+    - hosts:
+        - portainer.example.com
+      secretName: portainer-ingress-tls

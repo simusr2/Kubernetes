@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: k10-certificate
+  namespace: kasten-io
+spec:
+  secretName: k10-certificate
+  issuerRef:
+    name: acme-issuer
+    # kind: Issuer
+    # - or -
+    kind: ClusterIssuer
+  dnsNames:
+    - "k10.example.com"
